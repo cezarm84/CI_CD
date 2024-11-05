@@ -39,4 +39,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./encryption-app/dist
           force_orphan: true
-          clean: true 
+          
