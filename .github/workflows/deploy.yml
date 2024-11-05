@@ -32,10 +32,7 @@ jobs:
       - name: Build project
         working-directory: ./encryption-app
         run: npm run build
-        
-      - name: deploy
-        working-directory: ./encryption-app
-        run: npm run deploy
+      
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
