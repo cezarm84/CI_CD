@@ -21,10 +21,16 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Change directory to frontend
+        working-directory: ./encryption-app
+        run: pwd
+
       - name: Install dependencies
+        working-directory: ./encryption-app
         run: npm install
 
       - name: Build project
+        working-directory: ./encryption-app
         run: npm run build
 
       - name: Deploy to GitHub Pages
