@@ -26,11 +26,7 @@ jobs:
           npm install
           npm install -g npm@latest
           npm install --package-lock-only
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          git add package-lock.json
-          git commit -m "Add package-lock.json" || echo "No changes to commit"
-          git push || echo "No changes to push"
+          
 
       - name: Build
         run: npm run build
