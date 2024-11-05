@@ -56,7 +56,7 @@
 		</dependency>
 	</dependencies>
 
-	<<build>
+	<build>
     <finalName>cicd</finalName>
     <plugins>
         <plugin>
