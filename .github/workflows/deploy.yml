@@ -20,10 +20,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
-      - name: Install dependencies
-        run: npm clean-install
+      - name: Install dependencies and create lockfile
+        run: |
+          npm install
+          npm install -g npm@latest
+          npm install --package-lock-only
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add package-lock.json
+          git commit -m "Add package-lock.json" || echo "No changes to commit"
+          git push || echo "No changes to push"
 
       - name: Build
         run: npm run build
