@@ -1,8 +1,5 @@
 services:
   - type: web
-    name: your-app-name
+    name: cicdApp
     env: docker
-    dockerCommand: java -jar cicd.jar
-    envVars:
-      - key: PORT
-        value: 8080
+    dockerCommand: java -jar /cicd.jar
