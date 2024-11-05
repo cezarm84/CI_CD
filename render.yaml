@@ -2,4 +2,4 @@ services:
   - type: web
     name: cicdApp
     env: docker
-    dockerCommand: java -jar /cicd.jar
+    dockerCommand: sh -c "java -jar /cicd.jar --server.port=$PORT"
