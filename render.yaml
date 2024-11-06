@@ -1,6 +1,0 @@
-services:
-  - type: web
-    name: cicdApp
-    env: docker
-    dockerCommand: java -Dserver.port=$PORT -jar cicd.jar
-    
