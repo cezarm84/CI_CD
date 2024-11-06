@@ -3,6 +3,4 @@ services:
     name: cicdApp
     env: docker
     dockerCommand: java -Dserver.port=$PORT -jar cicd.jar
-    envVars:
-      - key: PORT
-        value: 10000
+    
