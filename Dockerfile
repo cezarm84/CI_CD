@@ -4,5 +4,5 @@ RUN mvn clean package -DskipTests
 
 FROM openjdk:17.0.1-jdk-slim
 COPY --from=build /target/cicd.jar /cicd.jar
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/cicd.jar"]
+EXPOSE ${PORT:-10000}
+ENTRYPOINT ["java", "-Dserver.port=${PORT:-10000}", "-jar", "/cicd.jar"]
