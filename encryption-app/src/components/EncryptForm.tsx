@@ -8,43 +8,45 @@ const EncryptForm: React.FC = () => {
 
     const handleEncrypt = async () => {
         try {
-            const response = await axios.post<{ encryptedText: string }>(
-                //'http://localhost:8080/api/encryption/encrypt',
+            const response = await axios.post<string>(
                 'https://ci-cd-593642826985.europe-west3.run.app/api/encryption/encrypt',
+                //'http://localhost:8080/api/encryption/encrypt',
                 { text }
             );
-            console.log("Response received:", response.data);
-            setEncryptedText(response.data.encryptedText || ''); 
-            setDecryptedText(''); // Clear decrypted text on new 
+
+           // console.log("Full encryption response:", response);
+            //console.log("Encrypted text from response:", response.data);
+
+        
+            setEncryptedText(response.data);
+            setDecryptedText(''); // Clear decrypted text 
         } catch (error) {
             console.error("Encryption failed", error);
         }
     };
 
     const handleDecrypt = async () => {
-        
-        
-
         try {
-            const response: AxiosResponse<{ text: string }> = await axios.post(
-                //'http://localhost:8080/api/encryption/decrypt',
+            console.log("Sending decryption request with payload:", encryptedText);
+        
+            const response = await axios.post<{ text: string }>(
                 'https://ci-cd-593642826985.europe-west3.run.app/api/encryption/decrypt',
-                encryptedText, // Send as a string
-                {
-                    headers: {
-                        'Content-Type': 'text/plain',
-                    },
-                }
+                //'http://localhost:8080/api/encryption/decrypt',
+                encryptedText,  // Send as plain text
+                { headers: { 'Content-Type': 'text/plain' } }
             );
-
-            console.log("Decrypted response received:", response.data);
-            setDecryptedText(response.data.text || ''); 
-        } catch (error) {
-            if (axios.isAxiosError(error) && error.response) {
-                console.error("Decryption failed:", error.response.data); 
+        
+            //console.log("Decryption response received:", response.data);
+        
+            // Check impty string
+            if (response.data.text === '') {
+                setDecryptedText('Decryption resulted in an empty string');
             } else {
-                console.error("Decryption failed:", error);
+                setDecryptedText(response.data.text);
             }
+        } catch (error) {
+            console.error("Decryption failed:", error);
+            setDecryptedText('Decryption failed');
         }
     };
 
