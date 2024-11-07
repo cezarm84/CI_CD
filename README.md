@@ -1,6 +1,7 @@
 # CI_CD
 Ci Cd uppgift
 
+https://cezarm84.github.io/CI_CD/
 
 Reflektion över CI/CD Implementation:
 Vad jag lärt mig om CI/CD?
