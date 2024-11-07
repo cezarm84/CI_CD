@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 
 const EncryptForm: React.FC = () => {
     const [text, setText] = useState<string>(''); // Input for text to encrypt
@@ -8,61 +8,67 @@ const EncryptForm: React.FC = () => {
 
     const handleEncrypt = async () => {
         try {
-            const response = await axios.post<{ encryptedText: string }>(
+            const response = await axios.post<string>(
                 'http://localhost:8080/api/encryption/encrypt',
                 { text }
             );
-            console.log("Response received:", response.data);
-            setEncryptedText(response.data.encryptedText || ''); 
-            setDecryptedText(''); // Clear decrypted text on new 
+
+            console.log("Full encryption response:", response);
+            console.log("Encrypted text from response:", response.data);
+
+            // Use response.data directly as the encrypted text
+            setEncryptedText(response.data);
+            setDecryptedText(''); // Clear decrypted text on new encryption
         } catch (error) {
             console.error("Encryption failed", error);
         }
     };
 
     const handleDecrypt = async () => {
-        
-        
-
         try {
-            const response: AxiosResponse<{ text: string }> = await axios.post(
+            console.log("Sending decryption request with payload:", encryptedText);
+        
+            const response = await axios.post<{ text: string }>(
                 'http://localhost:8080/api/encryption/decrypt',
-                encryptedText, // Send as a string
-                {
-                    headers: {
-                        'Content-Type': 'text/plain',
-                    },
-                }
+                encryptedText,  // Send as plain text
+                { headers: { 'Content-Type': 'text/plain' } }
             );
-
-            console.log("Decrypted response received:", response.data);
-            setDecryptedText(response.data.text || ''); 
-        } catch (error) {
-            if (axios.isAxiosError(error) && error.response) {
-                console.error("Decryption failed:", error.response.data); 
+        
+            console.log("Decryption response received:", response.data);
+        
+            // Check if the text is empty and set the fallback message only in that case
+            if (response.data.text === '') {
+                setDecryptedText('Decryption resulted in an empty string');
             } else {
-                console.error("Decryption failed:", error);
+                setDecryptedText(response.data.text);
             }
+        } catch (error) {
+            console.error("Decryption failed:", error);
+            setDecryptedText('Decryption failed');
         }
     };
-
+    
+    
+    
+    
+    
     return (
         <div>
             <h2>Encrypt Text</h2>
             <input
                 type="text"
                 value={text}
-                onChange={(e) => setText(e.target.value || '')} 
+                onChange={(e) => setText(e.target.value)}
                 placeholder="Enter text to encrypt"
             />
             <button onClick={handleEncrypt}>Encrypt</button>
-            {encryptedText && <p>Encrypted: {encryptedText}</p>} 
+            {encryptedText && <p>Encrypted: {encryptedText}</p>}
 
             <h2>Decrypt Text</h2>
             <input
                 type="text"
                 value={encryptedText}
-                onChange={(e) => setEncryptedText(e.target.value || '')} 
+                onChange={(e) => setEncryptedText(e.target.value)}
                 placeholder="Enter text to decrypt"
             />
             <button onClick={handleDecrypt}>Decrypt</button>
