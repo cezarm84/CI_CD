@@ -9,7 +9,8 @@ const EncryptForm: React.FC = () => {
     const handleEncrypt = async () => {
         try {
             const response = await axios.post<{ encryptedText: string }>(
-                'http://localhost:8080/api/encryption/encrypt',
+                //'http://localhost:8080/api/encryption/encrypt',
+                'https://ci-cd-593642826985.europe-west3.run.app/api/encryption/encrypt',
                 { text }
             );
             console.log("Response received:", response.data);
@@ -26,7 +27,8 @@ const EncryptForm: React.FC = () => {
 
         try {
             const response: AxiosResponse<{ text: string }> = await axios.post(
-                'http://localhost:8080/api/encryption/decrypt',
+                //'http://localhost:8080/api/encryption/decrypt',
+                'https://ci-cd-593642826985.europe-west3.run.app/api/encryption/decrypt',
                 encryptedText, // Send as a string
                 {
                     headers: {
