@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 
 const EncryptForm: React.FC = () => {
     const [text, setText] = useState<string>(''); // Input for text to encrypt
