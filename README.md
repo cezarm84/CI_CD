@@ -3,6 +3,9 @@ Ci Cd uppgift
 
 https://cezarm84.github.io/CI_CD/
 
+figma sketch:
+https://www.figma.com/board/3jsfNz1ghUqFM5NSaev7OD/CI_CD-workflow?t=wmeE1vc3tdVK9TGX-6
+
 Reflektion över CI/CD Implementation:
 Vad jag lärt mig om CI/CD?
 
